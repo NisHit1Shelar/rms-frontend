@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            animation: rotateBackground 100s infinite linear;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        @keyframes rotateBackground {
+            0% { background-image: url('/bg1.jpg'); }
+            50% { background-image: url('/bg2.jpg'); }
+            100% { background-image: url('/bg3.jpg'); }
+        }
+
+        /* Add smooth transitions for mobile users with continuous scale effect */
+        .animated-container {
+            animation: pulseEffect 4s infinite ease-in-out;
+        }
+
+        @keyframes pulseEffect {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        /* Modern Button Styling with slight pulse */
+        .btn-modern {
+            background: linear-gradient(45deg, #10b981, #34d399);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            border-radius: 999px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: pulseButton 4s infinite ease-in-out;
+        }
+
+        @keyframes pulseButton {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive styling for mobile */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 0 1rem;
+            }
+            .bill-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat">
+    <div class="bg-white shadow-xl rounded-lg p-8 m-3 bill-container max-w-lg w-full animated-container">
+        <!-- Restaurant Name & Logo -->
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-extrabold text-gray-800 tracking-wide">The Fancy Fork</h1>
+            <p class="text-sm text-gray-500">1234 Food Street, Culinary City</p>
+        </div>
+
+        <!-- Bill Details -->
+        <div class="border-t border-gray-300 pt-4 mb-4">
+            <h2 class="text-xl font-semibold text-gray-700 mb-2">Bill Summary</h2>
+            <div id="bill-items" class="space-y-3">
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th class="text-lg font-semibold text-gray-700">Item</th>
+                            <th class="text-lg font-semibold text-gray-700">Qty</th>
+                            <th class="text-lg font-semibold text-gray-700">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bill-items-tbody">
+                        <!-- Dynamically generated items will go here -->
+                    </tbody>
+                </table>
+                <div class="flex justify-between mt-4 border-t border-gray-300 pt-4">
+                    <p class="text-lg font-semibold text-gray-700">Total</p>
+                    <p id="total-amount" class="text-lg font-semibold text-gray-700">₹<span id="totalAmount">0</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pay Now Button -->
+        <div class="text-center mt-6">
+            <a id="payNowButton" href="#" class="btn-modern">Pay Now</a>
+        </div>
+
+        <!-- Thank You Message -->
+        <div class="text-center mt-6">
+            <p class="text-sm text-gray-500">Thank you for dining with us!</p>
+        </div>
+    </div>
+
+    <script src="bill.js"></script>
+</body>
+</html>

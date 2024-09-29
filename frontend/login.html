@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Select User Type</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Apply background image directly to the body */
+        body {
+            background-image: url('loginbg.jpg');
+            background-size: cover; /* Ensure the background image covers the whole screen */
+            background-position: center; /* Center the image */
+        }
+        /* 3D Shadow and Elevation Effect */
+        .elevated {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 0 10px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease-in-out;
+            transform: translateY(-10px);
+        }
+
+        .elevated:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Partition styling */
+        .divider {
+            border-right: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hover effect */
+        .hover-effect:hover {
+            transform: scale(1.05);
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Pulse animation */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="elevated bg-white rounded-lg  max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <!-- Left Image Section -->
+        <div class="hidden md:block">
+            <img src="login.jpg" alt="Login Illustration" class="w-full h-full object-cover rounded-lg">
+        </div>
+
+        <!-- Right Side Login Section -->
+        <div class="flex flex-col justify-center m-11 px-8">
+            <h2 class="text-3xl font-bold text-center mb-8">Login as</h2>
+
+            <!-- Admin Button -->
+            <a href="admin-login.html" class="block text-center bg-blue-500 hover:bg-blue-600 text-white py-4 rounded-lg mb-4 hover-effect">
+                Admin
+            </a>
+
+            <!-- User Button -->
+            <a href="user-login.html" class="block text-center bg-green-500 hover:bg-green-600 text-white py-4 rounded-lg hover-effect">
+                User
+            </a>
+        </div>
+    </div>
+</body>
+</html>

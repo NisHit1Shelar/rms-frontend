@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1E1E2E;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #2D2F41;
+            padding-top: 20px;
+            transition: width 0.3s;
+            z-index: 1000;
+        }
+
+        .sidebar.closed {
+            width: 60px;
+        }
+
+        .sidebar a {
+            box-shadow: 1px 1px 2px 0 rgba(184, 162, 162, 0.5);
+            padding: 20px 15px;
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .sidebar a:hover {
+            background-color: #444;
+        }
+
+        /* Icon styling */
+        .sidebar .icon {
+            margin-right: 10px;
+        }
+
+        /* Hide the text when sidebar is collapsed */
+        .sidebar.closed .link-text {
+            display: none;
+        }
+
+        .sidebar .toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: -20px;
+            background-color: #1E1E2E;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            transition: margin-left 0.3s;
+            padding: 20px;
+        }
+
+        .main-content.closed {
+            margin-left: 60px;
+        }
+
+        .left-section {
+            flex: 2;
+            margin-right: 10%;
+        }
+
+        /* Right side (order section) */
+        .right-section {
+            flex: 1;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            background-color: #2D2F41;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 20px;
+            margin-right: 33.33%;
+        }
+
+        .table-grid {
+            background-color: #2D2F41;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-align: center;
+        }
+
+        .table-grid:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-menu {
+            margin-right: 30%;
+        }
+
+        .menu-category {
+            margin-right: 10%;
+            background-color: #2D2F41;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            height: 60px;
+            /* Fixed height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .menu-category:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 70%;
+            left: 0;
+            margin: 10px;
+            margin-left: 10%;
+            margin-top: 10px;
+            padding-left: 20px;
+            background-color: #333;
+            border-radius: 8px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            width: 50%;
+            /* Add this to make the submenu same width as parent */
+        }
+
+        .menu-item {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background-color: #444;
+        }
+
+/* New Close Button Styling */
+.close-btn {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.close-btn:hover {
+    color: #ff6347; /* Highlight color on hover */
+}
+
+
+        .order-summary {
+
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 33.33%;
+            /* adjust the width as needed */
+            height: 100vh;
+            overflow-y: auto;
+            background-color: #2D2F41;
+            padding: 20px;
+
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            margin-left: 66.67%
+        }
+
+        .order-summary table {
+            width: 100%;
+            background-color: #1e1e2e;
+            color: #fff;
+        }
+
+        .order-summary th,
+        .order-summary td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        /* Custom Styling for "Veg" and "Non-Veg" */
+        .subcategory-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #32CD32;
+            /* Light green for Veg */
+            margin-top: 10px;
+        }
+
+        .non-veg-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #FF6347;
+            /* Tomato red for Non-Veg */
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <a href="#" class="toggle-btn" onclick="toggleSidebar()">&#9776;</a>
+        <a href="admin.html"><span class="icon">📋</span><span class="link-text">Orders</span></a>
+        <a href="analysis.html"><span class="icon">📊</span><span class="link-text">Analysis</span></a>
+        <a href="settings.html"><span class="icon">⚙️</span><span class="link-text">Settings</span></a>
+    </div>
+    <div id="main-content" class="main-content"></div>
+    <div class="container mx-auto py-10">
+        <h1 class="text-4xl font-bold text-center mb-8">Admin Panel</h1>
+        <div class="left-section">
+            <!-- Table Grid Section -->
+            <div class="grid-container" id="tableGrid">
+                <!-- Dynamic table grids will be inserted here -->
+            </div>
+            <!-- Menu Section -->
+            <div class="menu-menu">
+                <div class="menu-section hidden" id="menu-section">
+                    <h2 class="text-2xl font-semibold mb-4">Menu</h2>
+                    <div id="menuList" class="grid grid-cols-3 gap-4">
+                        <!-- Menu items dynamically loaded from menu.json will be inserted here -->
+                    </div>
+                    <!-- Add a container for the submenu -->
+                    <div id="submenu-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-section order-summary">
+            <!-- Order Summary Section -->
+            <div class="order-summary hidden" id="order-details">
+                <h2 class="text-2xl font-semibold mb-4">Order Details for Table <span id="selectedTable"></span></h2>
+                <table class="min-w-full bg-gray-800 text-white">
+                    <thead>
+                        <tr>
+                            <th class="py-2">Item</th>
+                            <th class="py-2">Quantity</th>
+                            <th class="py-2">Price</th>
+                            <th class="py-2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderItems">
+                        <!-- Order items go here -->
+                    </tbody>
+                </table>
+                <div class="mt-4 text-right">
+                    <strong>Total: ₹<span id="totalAmount">0</span></strong>
+                </div>
+                <div class="mt-6 text-center">
+                    <button id="sendKOTButton" class="bg-blue-500 px-6 py-3 rounded-full">Send KOT</button>
+                    <button id="updateBillButton" class="bg-green-500 px-6 py-3 rounded-full ml-4">Update Bill</button>
+                    <button id="resetTableButton" class="bg-red-500 px-6 py-3 rounded-full ml-4">Reset Table</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    <script>
+        // Sidebar toggle functionality
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            sidebar.classList.toggle('closed');
+            mainContent.classList.toggle('closed');
+        }
+    </script>
+    <script src="admin.js"></script>
+</body>
+
+</html>

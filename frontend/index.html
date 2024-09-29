@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiter Order Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+    background-color: #1E1E2E;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    padding: 10px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.menu-category {
+    background-color: #2D2F41;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.menu-category:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.submenu {
+    display: none;
+    margin-top: 10px;
+}
+
+.menu-item {
+    background-color: #333;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+    background-color: #444;
+}
+
+.order-summary {
+    background-color: #2D2F41;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.order-summary table {
+    width: 100%;
+    background-color: #1e1e2e;
+    color: #fff;
+}
+
+.order-summary th, .order-summary td {
+    padding: 10px;
+    text-align: left;
+}
+
+button {
+    transition: all 0.2s ease;
+    margin: 10px;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+/* Custom Styling for "Veg" and "Non-Veg" */
+.subcategory-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #32CD32;
+            /* Light green for Veg */
+            margin-top: 10px;
+        }
+
+        .non-veg-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #FF6347;
+            /* Tomato red for Non-Veg */
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto py-10">
+        <h1 class="text-4xl font-bold text-center mb-8">Waiter Order Panel</h1>
+
+        <div class="grid-container">
+            <!-- Menu Section -->
+            <div id="menuList">
+                <!-- Menu categories and items will be dynamically inserted here -->
+            </div>
+
+            <!-- Current Order Section -->
+            <div class="order-summary">
+                <h2 class="text-2xl font-semibold mb-4">Current Order</h2>
+                <table class="min-w-full bg-gray-800 text-white">
+                    <thead>
+                        <tr>
+                            <th class="py-2">Item</th>
+                            <th class="py-2">Quantity</th>
+                            <th class="py-2">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderItems">
+                        <!-- Order items go here -->
+                    </tbody>
+                </table>
+                <div class="mt-4 text-right">
+                    <strong>Total: ₹<span id="totalAmount">0</span></strong>
+                </div>
+                <div class="mt-6 text-center">
+                    <button onclick="placeOrder()" class="bg-blue-500 px-6 py-3 rounded-full">Place Order</button>
+                    <button onclick="addToOrder()" class="bg-green-500 px-6 py-3 rounded-full ml-4">Add to Order</button>
+                    <button onclick="resetOrder()" class="bg-red-500 px-6 py-3 rounded-full ml-4">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="user/user.js"></script>
+</body>
+</html>
